@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mega Millions Predictor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        h1 { color: #003366; text-align: center; }
+        .sugerencia {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin: 20px 0;
+            text-align: center;
+        }
+        .bola {
+            display: inline-block;
+            width: 60px;
+            height: 60px;
+            line-height: 60px;
+            border-radius: 50%;
+            background-color: #e0e0e0;
+            color: #003366;
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            margin: 0 5px;
+        }
+        .megaball { background-color: #ffcc00; color: #003366; }
+        .columnas {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+        .columna {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            width: 48%;
+        }
+        .caliente { color: #cc0000; font-weight: bold; }
+        .frio { color: #0066cc; font-weight: bold; }
+        .aviso {
+            margin-top: 30px;
+            font-size: 0.9em;
+            color: #666;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎱 Mega Millions Predictor</h1>
+    <p style="text-align:center;">Análisis basado en {{ total }} sorteos históricos</p>
+
+    <div class="sugerencia">
+        <h2>Combinación Sugerida (frecuencia reciente)</h2>
+        <div>
+            {% for num in blancas %}
+                <span class="bola">{{ num }}</span>
+            {% endfor %}
+            <span class="bola megaball">{{ megaball }}</span>
+        </div>
+        <p><small>Números blancos (1-70) | Mega Ball (1-25)</small></p>
+        <p><a href="/" style="color: #003366;">🔄 Actualizar</a></p>
+    </div>
+
+    <div class="columnas">
+        <div class="columna">
+            <h3>🔥 Números Calientes</h3>
+            <p><strong>Blancas:</strong> 
+                {% for num in stats.calientes_blancas[:5] %}
+                    <span class="caliente">{{ num }}</span>{% if not loop.last %}, {% endif %}
+                {% endfor %}
+            </p>
+            <p><strong>Mega Ball:</strong> 
+                {% for num in stats.calientes_mega %}
+                    <span class="caliente">{{ num }}</span>{% if not loop.last %}, {% endif %}
+                {% endfor %}
+            </p>
+        </div>
+        <div class="columna">
+            <h3>❄️ Números Fríos</h3>
+            <p><strong>Blancas:</strong> 
+                {% for num in stats.frios_blancas[:5] %}
+                    <span class="frio">{{ num }}</span>{% if not loop.last %}, {% endif %}
+                {% endfor %}
+            </p>
+            <p><strong>Mega Ball:</strong> 
+                {% for num in stats.frios_mega %}
+                    <span class="frio">{{ num }}</span>{% if not loop.last %}, {% endif %}
+                {% endfor %}
+            </p>
+        </div>
+    </div>
+
+    <div class="aviso">
+        <p>⚠️ Este proyecto es solo con fines educativos. No garantiza aciertos.</p>
+    </div>
+</body>
+</html>
